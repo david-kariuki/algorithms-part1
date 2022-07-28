@@ -56,12 +56,12 @@ public class QuickFindUF {
 	 * @apiNote Initialize union-find data structure with n objects (0 to N - 1)
 	 * @apiNote (N array accesses)
 	 */
-	public QuickFindUF(int N) {
+	public QuickFindUF(int n) {
 
-		id = new int[N]; // Initialize id with N
+		id = new int[n]; // Initialize id with N
 
 		// Loop to initialize array
-		for (int i = 0; i < N; i++) {
+		for (int i = 0; i < n; i++) {
 			id[i] = i; // Set the id of each object to itself
 		}
 	}
