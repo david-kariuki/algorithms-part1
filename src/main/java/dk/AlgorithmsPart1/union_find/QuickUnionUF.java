@@ -15,11 +15,17 @@
  * Find. Check if p and q have the same root.
  * Union. To merge components containing p and q, set the id of p's root to the id of q's root.
  * <p>
- * @note
+ * @note Speed
+ * Quick-union is also too slow
+ * Cost model - Number of array accesses (for read or write).
+ * @note Quick-find defect
+ * Union is too expensive (N array accesses), Trees are flat, but too expensive to keep them flat.
  * <p>
- * @note
+ * @note Quick-union defect.
+ * Trees can get tall.
+ * Find too expensive (could be N array accesses).
  * <p>
- * @note
+ * @see dk.AlgorithmsPart1.UnionFindMain#main(java.lang.String[])
  * @since 27/7/2022
  */
 
@@ -41,26 +47,31 @@ public class QuickUnionUF {
 	 *
 	 * <p>
 	 *
-	 * @apiNote Initialize union-find data structure with n objects (0 to N - 1)
-	 * @apiNote (N array accesses)
+	 * @note Initialize union-find data structure with n objects (0 to N - 1)
+	 * (N array accesses)
 	 */
-	public QuickUnionUF(int N) {
+	public QuickUnionUF(int n) {
 
-		id = new int[N]; // Initialize id with N
+		id = new int[n]; // Initialize id with N
 
 		// Loop to initialize array
-		for (int i = 0; i < N; i++) {
+		for (int i = 0; i < n; i++) {
 			id[i] = i; // Set the id of each object to itself
 		}
 	}
 
 	/**
 	 * Method to get the root
+	 *
 	 * @param i - I
 	 * @return int
+	 *
+	 * <p>
+	 * @note Chase parent pointers until it reaches the root (depth of i array accesses)
 	 */
 	private int root(int i) {
 
+		// Chase parent pointers until it reaches the root (depth of i array accesses)
 		while (i != id[i]) {
 			i = id[i];
 		}
@@ -75,10 +86,11 @@ public class QuickUnionUF {
 	 * @return boolean
 	 *
 	 * <p>
-	 * @apiNote - Are P and Q in the same component (2 array accesses)
+	 * @note - Check if p and q have same root (depth of p and q array accesses)
 	 */
 	public boolean connected(final int p, final int q) {
-		return (id[p] == id[q]); // Compare for connection
+		return (root(p) == root(q)); // Check if p and q have same root (depth of p and q array accesses)
+
 	}
 
 	/**
@@ -86,41 +98,20 @@ public class QuickUnionUF {
 	 *
 	 * @param p - P
 	 * @param q - Q
-	 * @apiNote add connection between P and Q
-	 * @apiNote At most 2N + 2 array accesses
+	 *
+	 * <p>
+	 * @note add connection between P and Q
+	 * @note At most 2N + 2 array accesses
 	 */
 	public void union(final int p, final int q) {
-		int pId = id[p]; // Get id at index P
-		int qId = id[q]; // Get id at index Q
 
-		// Loop through creating union
-		for (int i = 0; i < id.length; i++) {
+		System.out.println("Connecting P and Q" + p + " " + q);
 
-			// Change all entries with id[p] to id[q]. At most 2N + 2 array accesses
-			if (id[i] == pId) {
-				id[i] = qId;
-			}
-		}
-	}
+		// Change root of p to point to root of q (depth of p and q array accesses)
+		int i = root(p); // Get root of p
+		int j = root(q); // Get root of q
+		id[i] = j; // Set id to root of q
 
-	/**
-	 * Method to check if connected
-	 *
-	 * @param p - P
-	 * @return int
-	 * @apiNote Component identifier for P (o to N - 1)
-	 */
-	int find(int p) {
-		return 0;
-	}
-
-	/**
-	 * Method to count number of components
-	 *
-	 * @return int
-	 * @apiNote - Number of components
-	 */
-	public int count() {
-		return id.length; // Return length
+		System.out.println("P Q " + p + " " + q);
 	}
 }
