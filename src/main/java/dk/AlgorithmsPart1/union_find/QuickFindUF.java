@@ -89,6 +89,9 @@ public class QuickFindUF {
 	 * @apiNote At most 2N + 2 array accesses
 	 */
 	public void union(final int p, final int q) {
+
+		System.out.println("Connecting P and Q" + p + " " + q);
+
 		int pId = id[p]; // Get id at index P
 		int qId = id[q]; // Get id at index Q
 
@@ -100,6 +103,8 @@ public class QuickFindUF {
 				id[i] = qId;
 			}
 		}
+
+		System.out.println("P Q " + p + " " + q);
 	}
 
 	/**
