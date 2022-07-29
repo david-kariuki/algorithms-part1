@@ -6,7 +6,7 @@
 
 1. UNION FIND - ***M*** union-find operations on a set of ***N*** objects
 
-| **UNION FIND** |
+| **UNION FIND** ||
 | --| --|
 | ***Algorithm*** | ***Worst-Case Time*** |
 | QuickFind | M N |
